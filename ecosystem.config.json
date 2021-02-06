@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name": "trace.moe-hasher",
+      "script": "hasher.js",
+      "instances": 4,
+      "autorestart": true,
+      "exec_mode": "cluster"
+    },
+    {
+      "name": "trace.moe-loader",
+      "script": "loader.js",
+      "instances": 2,
+      "autorestart": true,
+      "exec_mode": "cluster"
+    }
+  ]
+}

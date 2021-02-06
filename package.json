@@ -1,0 +1,39 @@
+{
+  "name": "trace.moe-worker",
+  "version": "0.1.0",
+  "description": "",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.json",
+    "stop": "pm2 stop ecosystem.config.json",
+    "restart": "pm2 restart ecosystem.config.json",
+    "reload": "pm2 reload ecosystem.config.json",
+    "delete": "pm2 delete ecosystem.config.json",
+    "prettier": "prettier",
+    "format": "prettier --write \"**/*.js\"",
+    "lint": "prettier --check \"**/*.js\"",
+    "test": "prettier --check \"**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soruly/trace.moe-worker.git"
+  },
+  "author": "soruly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soruly/trace.moe-worker/issues"
+  },
+  "homepage": "https://github.com/soruly/trace.moe-worker#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.1.0",
+    "lzma-native": "^6.0.1",
+    "node-fetch": "^2.6.1",
+    "ws": "^7.4.3",
+    "xmldoc": "^1.1.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
