@@ -15,9 +15,13 @@ const messageHandle = async (message) => {
   const { file, core } = JSON.parse(message);
 
   console.log(`Downloading ${file}`);
-  const res = await fetch(`${TRACE_API_URL}/hash/${file}.xml.xz`, {
-    headers: { "x-trace-secret": TRACE_API_SECRET },
-  });
+  const [anilistID, fileName] = file.split("/");
+  const res = await fetch(
+    `${TRACE_API_URL}/hash/${anilistID}/${encodeURIComponent(fileName)}.xml.xz`,
+    {
+      headers: { "x-trace-secret": TRACE_API_SECRET },
+    }
+  );
   if (res.status >= 400) {
     console.log(`Error: Fail to download "${await res.text()}"`);
     ws.send(message);
@@ -81,7 +85,7 @@ const messageHandle = async (message) => {
     body: xml,
   });
 
-  await fetch(`${TRACE_API_URL}/loaded/${file}`, {
+  await fetch(`${TRACE_API_URL}/loaded/${anilistID}/${encodeURIComponent(fileName)}`, {
     headers: { "x-trace-secret": TRACE_API_SECRET },
   });
   ws.send(message);
