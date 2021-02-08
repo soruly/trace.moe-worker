@@ -10,7 +10,7 @@ console.log(`Watching ${TRACE_WATCH_PATH} for new files`);
 chokidar
   .watch(TRACE_WATCH_PATH, {
     persistent: true,
-    ignoreInitial: true,
+    ignoreInitial: false,
     usePolling: false,
     awaitWriteFinish: {
       stabilityThreshold: 2000,
