@@ -52,6 +52,7 @@ chokidar
       if (response.status !== 204) {
         console.log(`Error: API update failed. HTTP ${response.status}`);
       } else {
+        fs.removeSync(filePath);
         console.log("Completed");
       }
     } else {
