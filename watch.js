@@ -36,16 +36,19 @@ chokidar
     }
 
     console.log(`Uploading ${anilistID}/${fileName}`);
-    const res = await fetch(`${TRACE_MEDIA_URL}/${anilistID}/${fileName}`, {
+    const res = await fetch(`${TRACE_MEDIA_URL}/${anilistID}/${encodeURIComponent(fileName)}`, {
       method: "PUT",
       body: fs.createReadStream(filePath),
       headers: { "x-trace-secret": TRACE_API_SECRET },
     });
     if (res.status === 201 || res.status === 204) {
       console.log(`Uploaded ${anilistID}/${fileName}`);
-      const response = await fetch(`${TRACE_API_URL}/uploaded/${anilistID}/${fileName}`, {
-        headers: { "x-trace-secret": TRACE_API_SECRET },
-      });
+      const response = await fetch(
+        `${TRACE_API_URL}/uploaded/${anilistID}/${encodeURIComponent(fileName)}`,
+        {
+          headers: { "x-trace-secret": TRACE_API_SECRET },
+        }
+      );
       if (response.status !== 204) {
         console.log(`Error: API update failed. HTTP ${response.status}`);
       } else {

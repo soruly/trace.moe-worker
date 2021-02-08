@@ -47,8 +47,9 @@ const messageHandle = async (message) => {
   }
 
   console.log(`Downloading ${file}`);
+  const [anilistID, fileName] = file.split("/");
   const mp4FilePath = path.join(tempPath, "video.mp4");
-  const video = await fetch(`${TRACE_MEDIA_URL}/${file}`, {
+  const video = await fetch(`${TRACE_MEDIA_URL}/${anilistID}/${encodeURIComponent(fileName)}`, {
     headers: { "x-trace-secret": TRACE_API_SECRET },
   });
   if (video.status >= 400) {
@@ -166,7 +167,7 @@ const messageHandle = async (message) => {
   const compressedXML = await lzma.compress(parsedXML, { preset: 6 });
 
   console.log(`Uploading ${file}`);
-  await fetch(`${TRACE_API_URL}/hash/${file}`, {
+  await fetch(`${TRACE_API_URL}/hash/${anilistID}/${encodeURIComponent(fileName)}`, {
     method: "PUT",
     body: compressedXML,
     headers: { "x-trace-secret": TRACE_API_SECRET },
