@@ -36,11 +36,14 @@ chokidar
     }
 
     console.log(`Uploading ${anilistID}/${fileName}`);
-    const res = await fetch(`${TRACE_MEDIA_URL}/${anilistID}/${encodeURIComponent(fileName)}`, {
-      method: "PUT",
-      body: fs.createReadStream(filePath),
-      headers: { "x-trace-secret": TRACE_API_SECRET },
-    });
+    const res = await fetch(
+      `${TRACE_MEDIA_URL}/file/${anilistID}/${encodeURIComponent(fileName)}`,
+      {
+        method: "PUT",
+        body: fs.createReadStream(filePath),
+        headers: { "x-trace-secret": TRACE_API_SECRET },
+      }
+    );
     if (res.status === 201 || res.status === 204) {
       console.log(`Uploaded ${anilistID}/${fileName}`);
       const response = await fetch(
