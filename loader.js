@@ -93,13 +93,18 @@ const messageHandle = async (message) => {
 };
 
 const closeHandle = async () => {
-  console.log("connecting");
+  console.log(`Connecting to ${TRACE_API_URL}/ws`);
   ws = new WebSocket(`${TRACE_API_URL}/ws`, {
     headers: { "x-trace-secret": TRACE_API_SECRET, "x-trace-worker-type": "load" },
   });
   ws.on("open", openHandle);
   ws.on("message", messageHandle);
-  ws.on("close", async () => {
+  ws.on("error", async (e) => {
+    console.log(e);
+  });
+  ws.on("close", async (e) => {
+    console.log(`WebSocket closed (Code: ${e})`);
+    console.log("Reconnecting in 5 seconds");
     await new Promise((resolve) => setTimeout(resolve, 5000));
     closeHandle();
   });
