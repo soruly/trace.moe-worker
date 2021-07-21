@@ -1,7 +1,9 @@
 # trace.moe-worker
 
 [![License](https://img.shields.io/github/license/soruly/trace.moe-worker.svg?style=flat-square)](https://github.com/soruly/trace.moe-worker/blob/master/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/trace.moe-worker/Node.js%20CI?style=flat-square)](https://github.com/soruly/trace.moe-worker/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/trace.moe-worker/Docker%20Image%20CI?style=flat-square)](https://github.com/soruly/trace.moe-worker/actions)
+[![Docker](https://img.shields.io/docker/pulls/soruly/trace.moe-worker-hasher?style=flat-square)](https://hub.docker.com/r/soruly/trace.moe-worker-hasher)
+[![Docker Image Size](https://img.shields.io/docker/image-size/soruly/trace.moe-worker-hasher/latest?style=flat-square)](https://hub.docker.com/r/soruly/trace.moe-worker-hasher)
 [![Discord](https://img.shields.io/discord/437578425767559188.svg?style=flat-square)](https://discord.gg/K9jn6Kj)
 
 Backend workers for [trace.moe](https://github.com/soruly/trace.moe)
