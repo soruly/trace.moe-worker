@@ -11,8 +11,8 @@ const openHandle = () => {
   console.log("connected");
 };
 
-const messageHandle = async (message) => {
-  const { file, core } = JSON.parse(message);
+const messageHandle = async (data) => {
+  const { file, core } = JSON.parse(data.toString());
 
   console.log(`Downloading ${file}`);
   const [anilistID, fileName] = file.split("/");
@@ -24,15 +24,15 @@ const messageHandle = async (message) => {
   );
   if (res.status >= 400) {
     console.log(`Error: Fail to download "${await res.text()}"`);
-    ws.send(message);
+    ws.send(data);
     return;
   }
 
   console.log("Unzipping hash");
-  const data = await lzma.decompress(await res.buffer());
+  const xmlData = await lzma.decompress(await res.buffer());
 
   console.log("Parsing xml");
-  const hashList = new xmldoc.XmlDocument(data).children
+  const hashList = new xmldoc.XmlDocument(xmlData).children
     .filter((child) => child.name === "doc")
     .map((doc) => {
       const fields = doc.children.filter((child) => child.name === "field");
@@ -88,7 +88,7 @@ const messageHandle = async (message) => {
   await fetch(`${TRACE_API_URL}/loaded/${anilistID}/${encodeURIComponent(fileName)}`, {
     headers: { "x-trace-secret": TRACE_API_SECRET },
   });
-  ws.send(message);
+  ws.send(data);
   console.log(`Loaded ${file}`);
 };
 

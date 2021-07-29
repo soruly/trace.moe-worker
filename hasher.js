@@ -14,8 +14,8 @@ const openHandle = () => {
   console.log("connected");
 };
 
-const messageHandle = async (message) => {
-  const { file, algo } = JSON.parse(message);
+const messageHandle = async (data) => {
+  const { file, algo } = JSON.parse(data.toString());
   console.log(`Hashing ${file}`);
 
   const tempPath = path.join(os.tmpdir(), `sola-${process.pid}`);
@@ -42,7 +42,7 @@ const messageHandle = async (message) => {
 
   if (!imageDescriptor) {
     console.log(`Error: Unsupported image descriptor "${algo}"`);
-    ws.send(message);
+    ws.send(data);
     return;
   }
 
@@ -57,7 +57,7 @@ const messageHandle = async (message) => {
   );
   if (video.status >= 400) {
     console.log(`Error: Fail to download video "${await video.text()}"`);
-    ws.send(message);
+    ws.send(data);
     return;
   }
   await new Promise((resolve, reject) => {
@@ -175,7 +175,7 @@ const messageHandle = async (message) => {
     body: compressedXML,
     headers: { "x-trace-secret": TRACE_API_SECRET },
   });
-  ws.send(message);
+  ws.send(data);
   console.log(`Uploaded ${file}`);
 };
 
