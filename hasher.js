@@ -106,7 +106,10 @@ const messageHandle = async (data) => {
   const thumbnailListPath = path.join(tempPath, "frames.txt");
   fs.writeFileSync(
     thumbnailListPath,
-    thumbnailList.map((each) => path.join(tempPath, each)).join("\n")
+    thumbnailList
+      .slice(0, timeCodeList.length)
+      .map((each) => path.join(tempPath, each))
+      .join("\n")
   );
 
   console.log("Analyzing frames");
