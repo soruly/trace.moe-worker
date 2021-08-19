@@ -31,7 +31,7 @@
     "fs-extra": "^10.0.0",
     "lzma-native": "^8.0.1",
     "node-fetch": "^2.6.1",
-    "ws": "^8.1.0",
+    "ws": "^8.2.0",
     "xmldoc": "^1.1.2"
   },
   "devDependencies": {
