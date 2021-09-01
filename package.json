@@ -30,7 +30,7 @@
     "dotenv": "^10.0.0",
     "fs-extra": "^10.0.0",
     "lzma-native": "^8.0.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "ws": "^8.2.1",
     "xmldoc": "^1.1.2"
   },
