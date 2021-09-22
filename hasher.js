@@ -127,11 +127,9 @@ const messageHandle = async (data) => {
       "-f", // force to overwrite output file
       // "-a", // use both BitSampling and MetricSpaces
       // "-l", // disable bitSampling and use MetricSpaces instead
-      "-w", // monitoring interval, default 1000ms
-      500,
       "-n", // number of threads
       16,
-      "-y", // defines which feature classes are to be extracted, comma seperated
+      "-y", // defines which feature classes are to be extracted, comma separated
       imageDescriptor, // cl,eh,jc,oh,ph,ac,ad,ce,fc,fo,jh,sc
     ],
     { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 }
@@ -150,12 +148,10 @@ const messageHandle = async (data) => {
       .map((line) => line.trim())
       .filter((line) => line.indexOf("<doc>") === 0)
       .map((line) =>
-        line
-          .replace(/<field name="title">(.*?)<\/field>/g, "")
-          .replace(
-            /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
-            (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`
-          )
+        line.replace(
+          /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
+          (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`
+        )
       )
       .sort(
         (a, b) =>
