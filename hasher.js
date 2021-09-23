@@ -12,6 +12,7 @@ const { TRACE_API_URL, TRACE_API_SECRET, TRACE_MEDIA_URL } = process.env;
 let ws;
 const openHandle = () => {
   console.log("connected");
+  ws.send("");
 };
 
 const messageHandle = async (data) => {

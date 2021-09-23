@@ -9,6 +9,7 @@ const { TRACE_API_URL, TRACE_API_SECRET } = process.env;
 let ws;
 const openHandle = () => {
   console.log("connected");
+  ws.send("");
 };
 
 const messageHandle = async (data) => {
