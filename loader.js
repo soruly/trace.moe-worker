@@ -30,7 +30,7 @@ const messageHandle = async (data) => {
   }
 
   console.log("Unzipping hash");
-  const xmlData = await lzma.decompress(await res.buffer());
+  const xmlData = await lzma.decompress(Buffer.from(await res.arrayBuffer()));
 
   console.log("Parsing xml");
   const hashList = new xmldoc.XmlDocument(xmlData).children
