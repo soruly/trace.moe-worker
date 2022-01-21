@@ -29,7 +29,7 @@
     "chokidar": "^3.5.3",
     "dotenv": "^11.0.0",
     "fs-extra": "^10.0.0",
-    "lzma-native": "^8.0.5",
+    "lzma-native": "^8.0.6",
     "node-fetch": "^3.2.0",
     "ws": "^8.4.2",
     "xmldoc": "^1.1.2"
