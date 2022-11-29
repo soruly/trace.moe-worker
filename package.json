@@ -28,7 +28,7 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "dotenv": "^16.0.3",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.0.0",
     "lzma-native": "^8.0.6",
     "node-fetch": "^3.3.0",
     "ws": "^8.11.0",
