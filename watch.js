@@ -34,7 +34,7 @@ const upload = async () => {
       `${TRACE_API_URL}/uploaded/${anilistID}/${encodeURIComponent(fileName)}`,
       {
         headers: { "x-trace-secret": TRACE_API_SECRET },
-      }
+      },
     );
     if (response.status !== 204) {
       console.log(`Error: API update failed. HTTP ${response.status}`);

@@ -21,7 +21,7 @@ const messageHandle = async (data) => {
     `${TRACE_API_URL}/hash/${anilistID}/${encodeURIComponent(fileName)}.xml.xz`,
     {
       headers: { "x-trace-secret": TRACE_API_SECRET },
-    }
+    },
   );
   if (res.status >= 400) {
     console.log(`Error: Fail to download "${await res.text()}"`);
@@ -73,7 +73,7 @@ const messageHandle = async (data) => {
           doc.cl_ha,
           "</field>",
           "</doc>",
-        ].join("")
+        ].join(""),
       )
       .join("\n"),
     "</add>",

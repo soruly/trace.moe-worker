@@ -54,7 +54,7 @@ const messageHandle = async (data) => {
     `${TRACE_MEDIA_URL}/file/${anilistID}/${encodeURIComponent(fileName)}`,
     {
       headers: { "x-trace-secret": TRACE_API_SECRET },
-    }
+    },
   );
   if (video.status >= 400) {
     console.log(`Error: Fail to download video "${await video.text()}"`);
@@ -89,7 +89,7 @@ const messageHandle = async (data) => {
       "fps=12,scale=-2:180,showinfo",
       `${tempPath}/%08d.jpg`,
     ],
-    { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 }
+    { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 },
   );
   fs.unlinkSync(mp4FilePath);
   const myRe = /pts_time:\s*((\d|\.)+?)\s*pos/g;
@@ -110,7 +110,7 @@ const messageHandle = async (data) => {
     thumbnailList
       .slice(0, timeCodeList.length)
       .map((each) => path.join(tempPath, each))
-      .join("\n")
+      .join("\n"),
   );
 
   console.log("Analyzing frames");
@@ -133,7 +133,7 @@ const messageHandle = async (data) => {
       "-y", // defines which feature classes are to be extracted, comma separated
       imageDescriptor, // cl,eh,jc,oh,ph,ac,ad,ce,fc,fo,jh,sc
     ],
-    { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 }
+    { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 },
   );
   console.log(stdout);
   console.log(stderr);
@@ -151,13 +151,13 @@ const messageHandle = async (data) => {
       .map((line) =>
         line.replace(
           /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
-          (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`
-        )
+          (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`,
+        ),
       )
       .sort(
         (a, b) =>
           parseFloat(a.match(/<field name="id">(.*?)<\/field>/)[1]) -
-          parseFloat(b.match(/<field name="id">(.*?)<\/field>/)[1])
+          parseFloat(b.match(/<field name="id">(.*?)<\/field>/)[1]),
       )
       .join("\n"),
     "</add>",
