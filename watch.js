@@ -22,12 +22,6 @@ const upload = async () => {
   const anilistID = filePath.replace(TRACE_WATCH_PATH, "").split("/")[0];
   const fileName = filePath.replace(TRACE_WATCH_PATH, "").split("/").pop();
 
-  if (![".mp4"].includes(path.extname(fileName).toLowerCase())) {
-    console.log(`Delete ${filePath}`);
-    fs.removeSync(filePath);
-    return;
-  }
-
   console.log(`Uploading ${anilistID}/${fileName}`);
   const res = await fetch(`${TRACE_MEDIA_URL}/file/${anilistID}/${encodeURIComponent(fileName)}`, {
     method: "PUT",
@@ -70,12 +64,16 @@ chokidar
   })
   .on("add", async (filePath) => {
     console.log(`[chokidar] add ${filePath}`);
-    if (!fs.existsSync(filePath)) {
-      console.log(`Gone ${filePath}`);
-      return;
-    }
-    if (filePath.replace(TRACE_WATCH_PATH, "").split("/").length < 2) return;
-    queue.push(filePath);
+    if (!fs.existsSync(filePath)) return console.log(`Gone ${filePath}`);
+    if (filePath.replace(TRACE_WATCH_PATH, "").split("/").length < 2)
+      return console.log(`Ignore ${filePath}`);
+
+    const fileName = filePath.replace(TRACE_WATCH_PATH, "").split("/").pop();
+    if ([".mp4"].includes(path.extname(fileName).toLowerCase())) return queue.push(filePath);
+    if ([".!qB"].includes(path.extname(fileName))) return console.log(`Ignore ${filePath}`);
+
+    console.log(`Delete ${filePath}`);
+    fs.removeSync(filePath);
   })
   .on("unlink", (filePath) => {
     console.log(`[chokidar] unlink ${filePath}`);
