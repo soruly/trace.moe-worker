@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:lts-bullseye-slim
+FROM node:lts-bookworm-slim
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y ffmpeg openjdk-17-jre
 ENV NODE_ENV=production
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
-RUN npm install --production
+RUN npm install --omit=dev
 COPY jar/ ./jar/
 COPY hasher.js ./
 CMD [ "node", "hasher.js" ]
