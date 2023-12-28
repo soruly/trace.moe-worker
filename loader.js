@@ -4,7 +4,13 @@ import xmldoc from "xmldoc";
 import lzma from "lzma-native";
 import fetch from "node-fetch";
 
-const { TRACE_API_URL, TRACE_API_SECRET } = process.env;
+const { TRACE_API_URL, TRACE_API_SECRET, TRACE_IMPORT_MODE = false } = process.env;
+
+let commitParameter = '&commit=true';
+if (TRACE_IMPORT_MODE === 'true') {
+    console.warn('Import mode is enabled; committing disabled');
+    commitParameter = '';
+}
 
 let ws;
 const openHandle = () => {
@@ -15,7 +21,7 @@ const openHandle = () => {
 const messageHandle = async (data) => {
   const { file, core } = JSON.parse(data.toString());
 
-  console.log(`Downloading ${file}`);
+  console.log(`Processing ${file}`);
   const [anilistID, fileName] = file.split("/");
   const res = await fetch(
     `${TRACE_API_URL}/hash/${anilistID}/${encodeURIComponent(fileName)}.xml.xz`,
@@ -79,8 +85,9 @@ const messageHandle = async (data) => {
     "</add>",
   ].join("\n");
 
-  console.log(`Uploading xml to ${core}`);
-  await fetch(`${core}/update?wt=json&commit=true`, {
+  const targetUri = `${core}/update?wt=json${ commitParameter }`;
+  console.log(`Uploading xml to ${core}`, targetUri);
+  await fetch(targetUri, {
     method: "POST",
     headers: { "Content-Type": "text/xml" },
     body: xml,
