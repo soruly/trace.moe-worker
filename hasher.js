@@ -77,6 +77,7 @@ const messageHandle = async (data) => {
   }
 
   console.log("Extracting thumbnails");
+  const extractStart = performance.now();
   const { stderr: ffmpegLog } = child_process.spawnSync(
     "ffmpeg",
     [
@@ -91,6 +92,10 @@ const messageHandle = async (data) => {
     ],
     { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 },
   );
+  const extractEnd = performance.now();
+  const extractTimeTaken = extractEnd - extractStart;
+  console.log(`Extracting thumbnails completed in ${extractTimeTaken} milliseconds`);
+
   fs.unlinkSync(mp4FilePath);
   const myRe = /pts_time:\s*((\d|\.)+?)\s*pos/g;
   let temp = [];
@@ -115,6 +120,7 @@ const messageHandle = async (data) => {
 
   console.log("Analyzing frames");
   const lireSolrXMLPath = path.join(tempPath, "output.xml");
+  const analyseStart = performance.now();
   const { stdout, stderr } = child_process.spawnSync(
     "java",
     [
@@ -138,7 +144,12 @@ const messageHandle = async (data) => {
   console.log(stdout);
   console.log(stderr);
 
+  const analyseEnd = performance.now();
+  const analyseTimeTaken = analyseEnd - analyseStart;
+  console.log(`Analyzing frames completed in ${analyseTimeTaken} milliseconds`);
+
   console.log("Post-Processing XML");
+  const processingXmlStart = performance.now();
   // replace frame numbers with timecode
   // and sort by timecode in ascending order
   const parsedXML = [
@@ -162,6 +173,11 @@ const messageHandle = async (data) => {
       .join("\n"),
     "</add>",
   ].join("\n");
+
+  const processingXmlEnd = performance.now();
+  const processingXmlTimeTaken = processingXmlEnd - processingXmlStart;
+  console.log(`Post-Processing completed in ${processingXmlTimeTaken} milliseconds`);
+
   // fs.writeFileSync("debug.xml", parsedXML);
   console.log("Removing temp files");
   fs.removeSync(tempPath);
