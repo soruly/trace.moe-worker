@@ -27,7 +27,7 @@
   "homepage": "https://github.com/soruly/trace.moe-worker#readme",
   "dependencies": {
     "chokidar": "^3.6.0",
-    "dotenv": "^16.4.3",
+    "dotenv": "^16.4.4",
     "fs-extra": "^11.2.0",
     "lzma-native": "^8.0.6",
     "node-fetch": "^3.3.2",
